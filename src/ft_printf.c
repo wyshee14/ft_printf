@@ -6,13 +6,13 @@
 /*   By: wshee <wshee@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:14:27 by wshee             #+#    #+#             */
-/*   Updated: 2024/12/01 15:43:29 by wshee            ###   ########.fr       */
+/*   Updated: 2024/12/01 21:54:32 by wshee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
+#include "../ft_printf.h"
 
-int print_format(char print, va_list args)
+int print_format(const char print, va_list args)
 {
 	int	i;
 
@@ -20,19 +20,17 @@ int print_format(char print, va_list args)
 	if (print == 'c') //char literal in C is already an int, promotion type
 		i += ft_printchar(va_arg(args, int));
 	else if (print == 's')
-		i += ft_printstr(va_arg(args, char *));
+		i += ft_printstr(va_arg(args, char*));
 	else if (print == 'p')
-		i += ft_printaddress(va_arg(args, int));
+		i += ft_printaddress(va_arg(args, void*));
 	else if (print == 'd' || print == 'i')
-		i += ft_printnum(va_arg(args, int));
+		i += ft_printnbr(va_arg(args, int));
 	else if (print == 'u')
-		i += ft_unsigneddecimal(va_arg(args, unsigned int));
-	else if (print == 'x')
-		i += ft_hexalower(va_arg(args, int));
-	else if (print == 'X')
-		i += ft_hexaupper(va_arg(args, int));
+		i += ft_print_unsigned_nbr(va_arg(args, unsigned int));
+	else if (print == 'x' || print == 'X')
+		i += ft_printhexa(va_arg(args, int), print);
 	else if (print == '%')
-		write(1, '%', 1);
+		i += ft_printchar('%');
 	return (i);
 }
 
@@ -40,6 +38,7 @@ int	ft_printf(const char *fmt, ...)
 {
 	va_list	args;
 	int	i;
+	int count;
 
 	va_start(args,fmt);
 	i = 0;
@@ -47,22 +46,23 @@ int	ft_printf(const char *fmt, ...)
 	{
 		if (fmt[i] == '%')
 		{
-			print_format(fmt, args);
 			i++;
+			count += print_format(fmt[i], args);
 		}
 		else
-			write(1, fmt, 1);
+			count += write(1, fmt, 1);
 		fmt++;
 	}
 	va_end(args);
-	return (s);
+	return (count);
 }
 
 #include <stdio.h>
 
 int main(void)
 {
-	//char *s = "hello my name is %s and I am %d years old";
-
-	printf("abcd: %d", 12);
+	int count = ft_printf("hello my name is %s and I am %d years old", "Laura", 23);
+	printf("%d\n", count);
+	printf("\n");
+	printf("hello my name is %s and I am %d years old", "Laura", 23);
 }

@@ -1,51 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printaddress.c                                  :+:      :+:    :+:   */
+/*   ft_printhexa.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wshee <wshee@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 16:49:18 by wshee             #+#    #+#             */
-/*   Updated: 2024/12/01 17:22:18 by wshee            ###   ########.fr       */
+/*   Created: 2024/12/01 18:48:58 by wshee             #+#    #+#             */
+/*   Updated: 2024/12/01 21:36:17 by wshee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#include <stdio.h>
-#include <unistd.h>
 
-static int	ft_hexadec(unsigned long address)
+int ft_printhexa(unsigned long n, char print)
 {
-	char			*hex;
-	int 			count;
+	char	*hex;
+	int		count;
 
-	hex = "0123456789abcdef";
-	if (address < 16)
+	if (print == 'x')
+		hex = "0123456789abcdef";
+	if (print == 'X')
+		hex = "0123456789ABCDEF";
+	count = 0;
+	if (n < 16)
 	{
-		write(1, &hex[address], 1);
+		write(1, &hex[n], 1);
 		return (1);
 	}
 	else
 	{
-		count = ft_hexadec(address / 16);
-		count += ft_hexadec(address % 16);
+		count = ft_printhexa(n / 16, print);
+		count += ft_printhexa(n % 16, print);
 	}
 	return (count);
 }
 
-int ft_printaddress(void *ptr)
-{
-	int	count;
-
-	count = 0;
-	count += write(1, "0x", 2);
-	count += ft_hexadec((unsigned long)ptr);
-	return (count);
-}
-
-// int main(void)
+// #include <stdio.h>
+// int main (void)
 // {
-// 	int n = 42;
-// 	int count = ft_printaddress(&n);
+// 	int count = ft_printhexa(42, 'x');
 // 	printf("\n%d\n", count);
 // }

@@ -6,45 +6,47 @@
 /*   By: wshee <wshee@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:44:38 by wshee             #+#    #+#             */
-/*   Updated: 2024/12/01 16:07:23 by wshee            ###   ########.fr       */
+/*   Updated: 2024/12/01 18:33:03 by wshee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <limits.h>
-#include <unistd.h>
+#include "../ft_printf.h"
 
 int	ft_printnbr(int n)
 {
 	int count;
 
+	count = 0;
 	if (n == -2147483648)
 	{
-		ft_printchar("-");
-		ft_printchar("2");
+		count += ft_printchar('-');
+		count += ft_printchar('2');
 		n = 147483648;
-		ft_printnbr(n);
-		return(count);
+		count += ft_printnbr(n);
 	}
-	if (n < 0)
+	else if (n < 0)
 	{
-		ft_printchar("-");
+		count += ft_printchar('-');
 		n = -n;
-		ft_printnbr(n);
+		count += ft_printnbr(n);
 	}
-	if (n < 10)
-	{
-		write(1, &n, 1);
-		return (1);
-	}
+	else if (n < 10)
+		count += ft_printchar(n + '0');
 	else
 	{
-		count = ft_printnbr(n / 10);
+		count += ft_printnbr(n / 10);
 		count += ft_printnbr(n % 10);
 	}
+	return (count);
 }
 
-int main(void)
-{
-	ft_printnbr(42);
-}
+#include <stdio.h>
+// int main(void)
+// {
+// 	int n1 = 12345;
+// 	int n2 = -42;
+// 	int n3 = -2147483648;
+// 	printf("\n%d\n", ft_printnbr(n1));
+// 	printf("\n%d\n", ft_printnbr(n2));
+// 	printf("\n%d\n", ft_printnbr(n3));
+// }

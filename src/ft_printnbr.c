@@ -6,15 +6,15 @@
 /*   By: wshee <wshee@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:44:38 by wshee             #+#    #+#             */
-/*   Updated: 2024/12/01 18:33:03 by wshee            ###   ########.fr       */
+/*   Updated: 2024/12/03 19:51:51 by wshee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_printnbr(int n)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	if (n == -2147483648)
@@ -40,7 +40,7 @@ int	ft_printnbr(int n)
 	return (count);
 }
 
-#include <stdio.h>
+//#include <stdio.h>
 // int main(void)
 // {
 // 	int n1 = 12345;

@@ -6,13 +6,13 @@
 /*   By: wshee <wshee@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:48:58 by wshee             #+#    #+#             */
-/*   Updated: 2024/12/01 21:36:17 by wshee            ###   ########.fr       */
+/*   Updated: 2024/12/03 19:53:51 by wshee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
-int ft_printhexa(unsigned long n, char print)
+int	ft_printhexa(unsigned int n, char print)
 {
 	char	*hex;
 	int		count;
@@ -35,9 +35,11 @@ int ft_printhexa(unsigned long n, char print)
 	return (count);
 }
 
+//printf handles for unsigned int only
 // #include <stdio.h>
 // int main (void)
 // {
-// 	int count = ft_printhexa(42, 'x');
+// 	int count = ft_printhexa(-42, 'x');
 // 	printf("\n%d\n", count);
+// 	printf("%x\n", -42);
 // }

@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_unsigned_nbr.c                            :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wshee <wshee@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/01 18:32:38 by wshee             #+#    #+#             */
-/*   Updated: 2024/12/03 19:53:06 by wshee            ###   ########.fr       */
+/*   Created: 2024/11/29 12:52:36 by wshee             #+#    #+#             */
+/*   Updated: 2024/12/03 19:52:43 by wshee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	ft_print_unsigned_nbr(unsigned int n)
-{
-	int	count;
+# include <unistd.h>
+# include <stdarg.h>
 
-	count = 0;
-	if (n < 10)
-		count += ft_printchar(n + '0');
-	else
-	{
-		count += ft_print_unsigned_nbr(n / 10);
-		count += ft_print_unsigned_nbr(n % 10);
-	}
-	return (count);
-}
+int	ft_printchar(int c);
+int	ft_printstr(char *s);
+int	ft_printaddress(void *ptr);
+int	ft_printnbr(int n);
+int	ft_print_unsigned_nbr(unsigned int n);
+int	ft_printhexa(unsigned int n, char print);
+int	ft_printf(const char *fmt, ...);
 
-// #include <stdio.h>
-// int main(void)
-// {
-// 	int n = -5;
-// 	printf("\n%u\n", ft_print_unsigned_nbr(n));
-// 	printf("%u\n", -5);
-// }
+#endif
